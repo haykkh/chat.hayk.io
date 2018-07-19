@@ -86,8 +86,10 @@ section {
         -ms-flex-direction: column-reverse;
             flex-direction: column-reverse;
     overflow-y: scroll;
-    max-height: -webkit-fill-available;
-    word-wrap: break-word; }
+    word-wrap: break-word;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1; }
     section #message_holder .sign {
       font-size: 12.8px;
       font-size: 0.8rem; }
@@ -96,7 +98,10 @@ section {
     section #message_holder .hayk {
       color: crimson; }
   section #input {
-    margin-top: 10px; }
+    margin-top: 10px;
+    -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0; }
     section #input #message {
       width: calc(100% - 20px);
       border: none;

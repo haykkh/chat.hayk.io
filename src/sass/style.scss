@@ -83,9 +83,8 @@ section {
 		display: flex;
 		flex-direction: column-reverse;
    		overflow-y: scroll;
-   		max-height: -webkit-fill-available;
    		word-wrap: break-word;
-
+   		flex-grow:1;
    		.sign {
    			font-size: 0.8rem;
    		}
@@ -103,6 +102,7 @@ section {
 	}
 	#input {
 		margin-top: 10px;
+		flex-grow: 0;
 		#message {
 			width: calc(100% - 20px);
 			border: none;
