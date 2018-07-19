@@ -100,12 +100,9 @@ section {
 			color: crimson;
 		}
 	}
-
-	form {
-		display: flex;
+	#input {
 		margin-top: 10px;
-
-		.message {
+		#message {
 			flex-grow: 1;
 			margin-right:10px;
 			border: none;
@@ -114,12 +111,7 @@ section {
 				outline: none;
 			}
 		}
-
-		.submit {
-			flex-grow:0;
-			border: 1px black solid;
-			cursor: pointer;
-		}
 	}
+
 }
 

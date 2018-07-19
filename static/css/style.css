@@ -94,23 +94,14 @@ section {
       color: grey; }
     section #message_holder .hayk {
       color: crimson; }
-  section form {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+  section #input {
     margin-top: 10px; }
-    section form .message {
+    section #input #message {
       -webkit-box-flex: 1;
           -ms-flex-positive: 1;
               flex-grow: 1;
       margin-right: 10px;
       border: none;
       padding: 10px; }
-      section form .message:focus {
+      section #input #message:focus {
         outline: none; }
-    section form .submit {
-      -webkit-box-flex: 0;
-          -ms-flex-positive: 0;
-              flex-grow: 0;
-      border: 1px black solid;
-      cursor: pointer; }

@@ -3,7 +3,6 @@ eventlet==0.23.0
 Flask==1.0.2
 Flask-Cors==3.0.6
 Flask-SocketIO==3.0.1
-Flask-WTF==0.14.2
 greenlet==0.4.14
 gunicorn==19.9.0
 itsdangerous==0.24
@@ -13,4 +12,3 @@ python-engineio==2.2.0
 python-socketio==2.0.0
 six==1.11.0
 Werkzeug==0.14.1
-WTForms==2.2.1

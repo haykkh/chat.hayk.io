@@ -35,7 +35,7 @@ def joined():
     room = request.sid
     print(room + ' connected')
     join_room(room)
-    socketio.emit('message', {'type': 'connection', 'usr': room[-4:], 'msg': ' has entered the room.'}, room=room)
+    socketio.emit('message', {'type': 'connection', 'usr': room[-4:], 'msg': ' has entered the room'}, room=room)
 
 @socketio.on('disconnect')
 def disconnect():
