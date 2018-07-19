@@ -1,0 +1,39 @@
+{
+  "name": "kha-chat-ryan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haykkh/kha-chat-ryan.git"
+  },
+  "env": {
+    "FLASK_APP": "${workspaceFolder}/app.py"
+  },
+  "author": "Hayk Khachatryan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haykkh/kha-chat-ryan/issues"
+  },
+  "homepage": "https://github.com/haykkh/kha-chat-ryan#readme",
+  "devDependencies": {
+    "browser-sync": "^2.24.5",
+    "child_process": "^1.0.2",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-inject": "^4.3.2",
+    "gulp-pixrem": "^1.0.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.3.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-scss": "^1.4.0",
+    "gulp-uglify": "^3.0.0",
+    "run-sequence": "^2.2.1"
+  }
+}

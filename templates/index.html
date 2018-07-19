@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>kha.chat/ryan</title>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<script type="text/javascript" charset="utf-8" async defer>
+		var socket = io.connect(document.domain + ':' + location.port);
+
+		socket.on('connect', function(){
+			socket.emit('joined');
+		});
+		socket.on('message', function(msg) {
+			if (typeof msg !== 'undefined'){
+				if (msg.type == 'connection'){
+					$('#message_holder').prepend('<div><span class="sign">< </span><b class="username you">' + msg.usr + ' </b><span class="message"> '+msg.msg+'</span><span class="sign"> ></span></div>');
+					$('#message_holder').prepend('<div><b class="username hayk">hayk </b><span class="message">I\'m Hayk Khachatryan, who are you?</span></div>');
+					$('#message_holder').prepend('<div><b class="username hayk">hayk </b><span class="message">Hi there!</span></div>');
+				} else if (msg.type == 'new_message'){
+					$('#message_holder').prepend('<div><b class="username you">' + msg.usr + ' </b><span class="message"> '+msg.msg+'</span></div>');
+				}
+		}});
+		$(document).keypress(function(e) {
+			if (e.which == 13) {
+				text = $('#message').val();
+				$('#message').val('');
+				socket.emit('send_message', {msg: text});
+			}
+		});
+	</script>
+
+
+	<section id="chat">
+		<div id="message_holder">
+			
+		</div>
+
+		<div id="input">
+			<input type="text" id="message" placeholder="Message">
+		</div>
+	</section>
+
+
+
+</body>
+</html>
