@@ -86,7 +86,8 @@ section {
         -ms-flex-direction: column-reverse;
             flex-direction: column-reverse;
     overflow-y: scroll;
-    max-height: -webkit-fill-available; }
+    max-height: -webkit-fill-available;
+    word-wrap: break-word; }
     section #message_holder .sign {
       font-size: 12.8px;
       font-size: 0.8rem; }
@@ -97,10 +98,7 @@ section {
   section #input {
     margin-top: 10px; }
     section #input #message {
-      -webkit-box-flex: 1;
-          -ms-flex-positive: 1;
-              flex-grow: 1;
-      margin-right: 10px;
+      width: calc(100% - 20px);
       border: none;
       padding: 10px; }
       section #input #message:focus {
