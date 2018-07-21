@@ -19,10 +19,15 @@
 			if (typeof msg !== 'undefined'){
 				if (msg.type == 'connection'){
 					$('#message_holder').prepend('<div><span class="sign">< </span><span class="username you">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span><span class="sign"> ></span></div>');
+					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">Hi there, welcome to kha.chat/ryan!</span></div>');
 					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">I\'m Hayk Khachatryan, who are you?</span></div>');
-					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">Hi there!</span></div>');
+
 				} else if (msg.type == 'new_message'){
+					if (msg.usr == 'hayk') {
+					$('#message_holder').prepend('<div><span class="username hayk">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span></div>');
+					} else {
 					$('#message_holder').prepend('<div><span class="username you">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span></div>');
+					};
 				}
 		}});
 		$(document).keypress(function(e) {
@@ -38,6 +43,8 @@
 	<section id="chat">
 		<div id="message_holder">
 			<div><span class="sign">< </span><span class="username hayk">hayk</span><span class="message"> has entered the room</span><span class="sign"> ></span></div>
+			<div><span class="sign">< </span>all content will be lost on refresh/reconnection <span class="sign">></span></div>
+
 		</div>
 
 		<div id="input">
