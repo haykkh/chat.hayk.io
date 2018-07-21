@@ -33,6 +33,9 @@
 		$(document).keypress(function(e) {
 			if (e.which == 13) {
 				text = $('#message').val();
+				if (text.substring(0,1) == '<') {
+					text = 'stop trying to inject stuffs'
+				}
 				$('#message').val('');
 				socket.emit('send_message', {msg: text});
 			}
