@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>kha.chat/ryan</title>
+	<title>chat w/ hayk</title>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
@@ -19,7 +19,7 @@
 			if (typeof msg !== 'undefined'){
 				if (msg.type == 'connection'){
 					$('#message_holder').prepend('<div><span class="sign">< </span><span class="username you">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span><span class="sign"> ></span></div>');
-					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">Hi there, welcome to kha.chat/ryan!</span></div>');
+					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">Hi there, welcome to chat.hayk.io!</span></div>');
 					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">I\'m Hayk Khachatryan, who are you?</span></div>');
 
 				} else if (msg.type == 'new_message'){
