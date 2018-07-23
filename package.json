@@ -1,5 +1,5 @@
 {
-  "name": "kha-chat-ryan",
+  "name": "chat.hayk.io",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haykkh/kha-chat-ryan.git"
+    "url": "git+https://github.com/haykkh/chat.hayk.io.git"
   },
   "env": {
     "FLASK_APP": "${workspaceFolder}/app.py"
@@ -16,9 +16,9 @@
   "author": "Hayk Khachatryan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/haykkh/kha-chat-ryan/issues"
+    "url": "https://github.com/haykkh/chat.hayk.io/issues"
   },
-  "homepage": "https://github.com/haykkh/kha-chat-ryan#readme",
+  "homepage": "https://github.com/haykkh/chat.hayk.io#readme",
   "devDependencies": {
     "browser-sync": "^2.24.5",
     "child_process": "^1.0.2",
