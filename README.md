@@ -7,6 +7,12 @@ Flask & SocketIO based webapp that connects with a Slack workspace and carries m
 
 ![](header.png)
 
+## Usage
+
+```
+$ gulp
+```
+
 
 ## Release History
 
