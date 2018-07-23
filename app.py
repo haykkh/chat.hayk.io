@@ -107,7 +107,7 @@ def inbound():
             if channel not in hayk_channels.keys() or hayk_channels[channel]:
                 hayk_channels[channel] = 1
                 # emit a conection message
-                socketio.emit('message', {'type': 'connection', 'usr': 'hayk', 'msg': ' has entered the room'}, room=room)
+                socketio.emit('message', {'type': 'connection', 'usr': 'hayk', 'msg': ' has entered the room'}, room=channel)
             
             inbound_message = username + " in " + channel + " says: " + text
             print(inbound_message)
