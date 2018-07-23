@@ -55,7 +55,7 @@ def slack_create_channel(channel_id):
     '''
     slack_client.api_call(
         "channels.create",
-        name=channel_id
+        name='#' + str(channel_id)
     )
 
 #####################
@@ -144,6 +144,9 @@ def joined():
 
     # create a channel with 'name': room
     slack_create_channel(room)
+
+    # notify hayk on slack that someone has joined
+    slack_send_message(room, "Someone's here!")
 
     # emit a conection message
     socketio.emit('message', {'type': 'connection', 'usr': room[-4:], 'msg': ' has entered the room'}, room=room)
