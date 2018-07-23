@@ -26,9 +26,8 @@ slack_client = SlackClient(SLACK_TOKEN)
 # outgoing webhook token
 SLACK_WEBHOOK_SECRET = os.environ.get('SLACK_WEBHOOK_SECRET')
 
-# dict of channels hayk has messaged in {channel_name: Bool}
-hayk_channels = {}
-
+# array of channels hayk has messaged in 
+hayk_channels = []
 
 def slack_send_message(channel_id, message):
     '''
@@ -103,9 +102,13 @@ def inbound():
             channel = request.form.get('channel_name')
             text = request.form.get('text')[1:]
 
+            print('hayk_channels: ' + str(hayk_channels))
+            print('channel: ' + str(channel))
+
             # if hayk has never responded in this channel
-            if channel not in hayk_channels.keys() or hayk_channels[channel]:
-                hayk_channels[channel] = 1
+            if channel not in hayk_channels:
+                
+                hayk_channels.append(channel)
                 # emit a conection message
                 socketio.emit('message', {'type': 'connection', 'usr': 'hayk', 'msg': ' has entered the room'}, room=channel)
             
@@ -150,7 +153,7 @@ def joined():
 def disconnect():
     room = request.sid[:20]
     leave_room(room)
-    hayk_channels[room] = 0
+    hayk_channels.remove(room)
     print('Client disconnected')
 
 
