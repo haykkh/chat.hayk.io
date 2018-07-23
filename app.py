@@ -1,65 +1,101 @@
 #!/usr/bin/env python3
 """
-Documentation
-
-See also https://www.python-boilerplate.com/flask
+Flask & SocketIO based webapp that connects with a Slack workspace and carries messages between the two
+(hayk (owner) talks from Slack, user talks from webapp)
 """
+
 import os
 
-from flask import Flask, jsonify, render_template, request, Response
+from flask import Flask, render_template, request, Response
 from flask_cors import CORS
 from flask_socketio import SocketIO, join_room, leave_room
 from slackclient import SlackClient
 
+
 #####################
-#					#
-#		slack 		#
-#					#
+#                   #
+#       slack       #
+#       setup       #
+#                   #
 #####################
-					
+
+# auth token
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 slack_client = SlackClient(SLACK_TOKEN)
+
+# outgoing webhook token
 SLACK_WEBHOOK_SECRET = os.environ.get('SLACK_WEBHOOK_SECRET')
 
+
 def slack_send_message(channel_id, message):
-	slack_client.api_call(
-		"chat.postMessage",
-		channel=channel_id,
-		text=message,
-		username="rando",
-		icon_emoji=':taco:'
-		)
+    '''
+    Sends a message to the specified channel from "rando"
+
+    Arguments:
+        channel_id {str}
+        message {str}
+    '''
+    slack_client.api_call(
+        "chat.postMessage",
+        channel=channel_id,
+        text=message,
+        username="rando",
+        icon_emoji=':taco:'
+    )
+
 
 def slack_create_channel(channel_id):
-	slack_client.api_call(
-		"channels.create",
-		name=channel_id
-		)
+    '''
+    Creates a channel with name: channel_id
+
+    Arguments:
+        channel_id {str} 
+    '''
+    slack_client.api_call(
+        "channels.create",
+        name=channel_id
+    )
+
+#####################
+#                   #
+#         end       #
+#       slack       #
+#       setup       #
+#                   #
+#####################
 
 
+# flask app init
 app = Flask(__name__)
 
-# See http://flask.pocoo.org/docs/latest/config/
 app.config.update(dict(DEBUG=True))
 app.config['SECRET_KEY'] = ';GSp:?4s_n&D'
 
 # Setup cors headers to allow all domains
-# https://flask-cors.readthedocs.io/en/latest/
 CORS(app)
 
-#socketio
+# socketio init
 socketio = SocketIO(app)
 
-# Definition of the routes. Put them into their own file. See also
-# Flask Blueprints: http://flask.pocoo.org/docs/latest/blueprints
+
+#####################
+#                   #
+#       flask       #
+#       routes      #
+#                   #
+#####################
+
 @app.route("/")
 def index():
     return render_template('index.html')
+
 
 @app.route('/slack', methods=['POST'])
 def inbound():
     if request.form.get('token') == SLACK_WEBHOOK_SECRET:
         username = request.form.get('user_name')
+
+        # prevent bot from sending its own messages over and over
         if username == 'hayk':
             channel = request.form.get('channel_name')
             text = request.form.get('text')[1:]
@@ -67,15 +103,38 @@ def inbound():
             print(inbound_message)
             sender = {'usr': username, 'channel': channel, 'msg': text}
             send_message(sender)
+
     return Response(), 200
+
+#####################
+#                   #
+#       end         #
+#       flask       #
+#       routes      #
+#                   #
+#####################
+
+
+#####################
+#                   #
+#     socketio      #
+#     handlers      #
+#                   #
+#####################
 
 @socketio.on('joined')
 def joined():
+    # cut room name length to 21 chars (slack channel name length limit)
     room = request.sid[:20]
     print(room + ' connected')
     join_room(room)
+
+    # create a channel with 'name': room
     slack_create_channel(room)
+
+    # emit a conection message
     socketio.emit('message', {'type': 'connection', 'usr': room[-4:], 'msg': ' has entered the room'}, room=room)
+
 
 @socketio.on('disconnect')
 def disconnect():
@@ -83,19 +142,35 @@ def disconnect():
     leave_room(room)
     print('Client disconnected')
 
+
 @socketio.on('send_message')
 def send_message(message):
+
+    # if 'usr' not specified (ie message sent by user from web app)
     if 'usr' not in message.keys():
         room = request.sid[:20]
         usr = room[-4:]
         slack_send_message(room, message['msg'])
+
+    # else sent by hayk from slack
     else:
         room = message['channel']
         usr = message['usr']
-    print('message: ' + str(message))
-    sender = {'type': 'new_message', 'usr': usr,'msg': message['msg'], 'room' : room}
+
+    sender = {'type': 'new_message', 'usr': usr,
+              'msg': message['msg'], 'room': room}
+
     print('sender: ' + str(sender))
+
     socketio.emit('message', sender, room=room)
+
+#####################
+#                   #
+#       end         #
+#     socketio      #
+#     handlers      #
+#                   #
+#####################
 
 
 if __name__ == "__main__":
