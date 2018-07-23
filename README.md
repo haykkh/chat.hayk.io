@@ -16,6 +16,13 @@ $ gulp
 
 ## Release History
 
+* 0.2.0
+    * Some UX improvements:
+        * Changed from < hayk > greeting at beginning to server greeting
+        * Added a "leave a message" note
+        * Changed from < hayk entered room > at beginning to whenever hayk sends first message
+    * Added some crimson here and there
+    * Now notifies via slack when someone joins instead of just messages
 * 0.1.0
     * The first proper release
 
