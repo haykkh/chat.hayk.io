@@ -92,7 +92,8 @@ section {
             flex-grow: 1; }
     section #message_holder .sign {
       font-size: 12.8px;
-      font-size: 0.8rem; }
+      font-size: 0.8rem;
+      color: crimson; }
     section #message_holder .you {
       color: grey; }
     section #message_holder .hayk {

@@ -28,8 +28,6 @@
 			if (typeof msg !== 'undefined'){
 				if (msg.type == 'connection'){
 					$('#message_holder').prepend('<div><span class="sign">< </span><span class="username you">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span><span class="sign"> ></span></div>');
-					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">Hi there, welcome to chat.hayk.io!</span></div>');
-					$('#message_holder').prepend('<div><span class="username hayk">hayk </span><span class="message">I\'m Hayk Khachatryan, who are you?</span></div>');
 
 				} else if (msg.type == 'new_message'){
 					if (msg.usr == 'hayk') {
@@ -52,9 +50,11 @@
 
 	<section id="chat">
 		<div id="message_holder">
-			<div><span class="sign">< </span><span class="username hayk">hayk</span><span class="message"> has entered the room</span><span class="sign"> ></span></div>
 			<div><span class="sign">< </span>all content will be lost on refresh/reconnection <span class="sign">></span></div>
+			<div><span class="sign">< </span>if i don't get back to you in a few feel free to leave a message with an email address <span class="sign">></span></div>
 
+			<div><span class="sign">< </span>hi there, welcome to chat.<span class="hayk">hayk</span>.io! <span class="sign">></span></div>
+		
 		</div>
 
 		<div id="input">
