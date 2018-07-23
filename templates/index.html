@@ -27,8 +27,11 @@
 		socket.on('message', function(msg) {
 			if (typeof msg !== 'undefined'){
 				if (msg.type == 'connection'){
+					if (msg.usr == 'hayk') {
+						$('#message_holder').prepend('<div><span class="sign">< </span><span class="username hayk">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span><span class="sign"> ></span></div>');						
+					} else {
 					$('#message_holder').prepend('<div><span class="sign">< </span><span class="username you">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span><span class="sign"> ></span></div>');
-
+					};
 				} else if (msg.type == 'new_message'){
 					if (msg.usr == 'hayk') {
 					$('#message_holder').prepend('<div><span class="username hayk">' + msg.usr + ' </span><span class="message"> '+msg.msg+'</span></div>');
