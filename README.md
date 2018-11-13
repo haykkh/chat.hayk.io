@@ -9,10 +9,43 @@ Flask & SocketIO based webapp that connects with a Slack workspace and carries m
 
 ## Usage
 
-```
-$ gulp
-```
+#### Production
 
+```sh
+gulp build
+```
+* clears /static
+* adds styles, scripts, and fonts
+
+#### Development
+
+```sh
+gulp watch
+```
+* watches styles/scripts/fonts/html 
+* browserSync.reloads page
+
+```sh
+gulp build:watch
+```
+* builds
+* then watches
+
+```sh
+gulp dev
+```
+Use when you want to start flask manually
+* builds
+* browserSyncs 
+* watches
+
+```sh
+gulp
+```
+* builds
+* starts server
+* browserSyncs
+* watches 
 
 ## Release History
 
