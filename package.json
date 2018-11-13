@@ -37,6 +37,7 @@
     "run-sequence": "^2.2.1"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
     "requests": "^0.2.2"
   }
 }
