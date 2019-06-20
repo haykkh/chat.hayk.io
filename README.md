@@ -7,12 +7,26 @@ Flask & SocketIO based webapp that connects with a Slack workspace and carries m
 
 ![](header.png)
 
+## Installation
+
+```sh
+$ cd chat.hayk.io/
+```
+
+```sh
+$ npm install
+```
+
+```sh
+$ pip install -r requirements.txt
+```
+
 ## Usage
 
 #### Production
 
 ```sh
-gulp build
+$ gulp build
 ```
 * clears /static
 * adds styles, scripts, and fonts
@@ -20,19 +34,19 @@ gulp build
 #### Development
 
 ```sh
-gulp watch
+$ gulp watch
 ```
 * watches styles/scripts/fonts/html 
 * browserSync.reloads page
 
 ```sh
-gulp build:watch
+$ gulp build:watch
 ```
 * builds
 * then watches
 
 ```sh
-gulp dev
+$ gulp dev
 ```
 Use when you want to start flask manually
 * builds
@@ -40,7 +54,7 @@ Use when you want to start flask manually
 * watches
 
 ```sh
-gulp
+$ gulp
 ```
 * builds
 * starts server
