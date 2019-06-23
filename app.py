@@ -71,7 +71,7 @@ def slack_create_channel(channel_id):
 app = Flask(__name__)
 
 app.config.update(dict(DEBUG=True))
-app.config['SECRET_KEY'] = ';GSp:?4s_n&D'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # Setup cors headers to allow all domains
 CORS(app)
