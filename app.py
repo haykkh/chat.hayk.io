@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Flask & SocketIO based webapp that connects with a Slack workspace and carries messages between the two
+Flask & SocketIO based webapp that connects with a Slack workspace
+and carries messages between the two
 (hayk (owner) talks from Slack, user talks from webapp)
 """
 
@@ -26,8 +27,9 @@ slack_client = SlackClient(SLACK_TOKEN)
 # outgoing webhook token
 SLACK_WEBHOOK_SECRET = os.environ.get('SLACK_WEBHOOK_SECRET')
 
-# array of channels hayk has messaged in 
+# array of channels hayk has messaged in
 hayk_channels = []
+
 
 def slack_send_message(channel_id, message):
     '''
@@ -51,7 +53,7 @@ def slack_create_channel(channel_id):
     Creates a channel with name: channel_id
 
     Arguments:
-        channel_id {str} 
+        channel_id {str}
     '''
     slack_client.api_call(
         "channels.create",
@@ -107,11 +109,17 @@ def inbound():
 
             # if hayk has never responded in this channel
             if channel not in hayk_channels:
-                
+
                 hayk_channels.append(channel)
                 # emit a conection message
-                socketio.emit('message', {'type': 'connection', 'usr': 'hayk', 'msg': ' has entered the room'}, room=channel)
-            
+                socketio.emit(
+                    'message',
+                    {
+                        'type': 'connection',
+                        'usr': 'hayk',
+                        'msg': ' has entered the room'
+                        }, room=channel)
+
             inbound_message = username + " in " + channel + " says: " + text
             print(inbound_message)
             sender = {'usr': username, 'channel': channel, 'msg': text}
@@ -149,7 +157,13 @@ def joined():
     slack_send_message(room, "Someone's here!")
 
     # emit a conection message
-    socketio.emit('message', {'type': 'connection', 'usr': room[-4:], 'msg': ' has entered the room'}, room=room)
+    socketio.emit(
+        'message',
+        {
+            'type': 'connection',
+            'usr': room[-4:],
+            'msg': ' has entered the room'
+            }, room=room)
 
 
 @socketio.on('disconnect')
