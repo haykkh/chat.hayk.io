@@ -52,7 +52,6 @@ var sourcesConfig = function (paths) {
 
 var paths = pathsConfig()
 var sources = sourcesConfig(paths)
-console.log(paths)
 /// /////////////////////////////
 // Tasks
 /// /////////////////////////////
@@ -95,8 +94,10 @@ gulp.task('scripts', function () {
 // Run Flask server
 gulp.task('runServer', function () {
   exec('flask run', function (err, stdout, stderr) {
-    console.log(stdout)
-    console.log(stderr)
+    if (err) {
+      console.log(stdout)
+      console.log(stderr)
+    }
   })
 })
 
