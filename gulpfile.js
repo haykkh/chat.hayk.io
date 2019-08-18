@@ -1,25 +1,24 @@
 // Plugins
-var gulp = require('gulp');
-var pjson = require('./package.json');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var cssnano = require('gulp-cssnano');
-var rename = require('gulp-rename');
-var del = require('del');
-var plumber = require('gulp-plumber');
-var pixrem = require('gulp-pixrem');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var exec = require('child_process').exec;
-var runSequence = require('run-sequence');
-var browserSync = require('browser-sync').create();
+var gulp = require('gulp')
+var pjson = require('./package.json')
+var sass = require('gulp-sass')
+var autoprefixer = require('gulp-autoprefixer')
+var cssnano = require('gulp-cssnano')
+var rename = require('gulp-rename')
+var del = require('del')
+var plumber = require('gulp-plumber')
+var pixrem = require('gulp-pixrem')
+var uglify = require('gulp-uglify')
+var concat = require('gulp-concat')
+var exec = require('child_process').exec
+var runSequence = require('run-sequence')
+var browserSync = require('browser-sync').create()
 
-var reload = browserSync.reload;
-
+var reload = browserSync.reload
 
 var pathsConfig = function (appName) {
   // Relative paths function
-  this.app = "../" + (appName || pjson.name);
+  this.app = '../' + (appName || pjson.name)
 
   return {
     app: this.app,
@@ -27,8 +26,8 @@ var pathsConfig = function (appName) {
     css: this.app + '/static/css',
     fonts: this.app + '/static/css',
     js: this.app + '/static/js'
-  };
-};
+  }
+}
 
 var sourcesConfig = function (paths) {
   return {
@@ -39,104 +38,101 @@ var sourcesConfig = function (paths) {
       paths.app + '/src/sass/*.scss'
     ],
     html: [
-    	paths.app + '/src/html/*.html'
+      paths.app + '/src/html/*.html'
     ],
     images: [
       paths.images + '/*'
     ],
     fonts: [
-    	paths.app + '/src/fonts/**/*.ttf',
-    	paths.app + '/src/fonts/**/*.woff'
+      paths.app + '/src/fonts/**/*.ttf',
+      paths.app + '/src/fonts/**/*.woff'
     ]
-  };
+  }
 };
 
-var paths = pathsConfig();
-var sources = sourcesConfig(paths);
+var paths = pathsConfig()
+var sources = sourcesConfig(paths)
 console.log(paths)
-////////////////////////////////
+/// /////////////////////////////
 // Tasks
-////////////////////////////////
+/// /////////////////////////////
 
 // Clean task
 gulp.task('clean', function () {
-  return del([paths.app + '/static']);
-});
+  return del([paths.app + '/static'])
+})
 
 // Styles autoprefixing and minification
-gulp.task('styles', function() {
-	return gulp.src(sources.sass)
+gulp.task('styles', function () {
+  return gulp.src(sources.sass)
     .pipe(sass().on('error', sass.logError))
     .pipe(plumber()) // Checks for errors
-    .pipe(autoprefixer({browsers: ['last 2 version']})) // Adds vendor prefixes
-    .pipe(pixrem())  // add fallbacks for rem units
+    .pipe(autoprefixer({ browsers: ['last 2 version'] })) // Adds vendor prefixes
+    .pipe(pixrem()) // add fallbacks for rem units
     .pipe(gulp.dest(paths.css))
-    .pipe(browserSync.reload({stream:true}));
-});
+    .pipe(browserSync.reload({ stream: true }))
+})
 
 // fonts
-gulp.task('fonts', function() {
-	return gulp.src(sources.fonts)
-	.pipe(gulp.dest(paths.css))
-	.pipe(browserSync.reload({stream:true}));
-});
+gulp.task('fonts', function () {
+  return gulp.src(sources.fonts)
+    .pipe(gulp.dest(paths.css))
+    .pipe(browserSync.reload({ stream: true }))
+})
 
 
 // Javascript minification
-gulp.task('scripts', function() {
+gulp.task('scripts', function () {
   return gulp.src(sources.js)
     .pipe(plumber()) // Checks for errors
     .pipe(uglify()) // Minifies the js
     .pipe(gulp.dest(paths.js))
     .pipe(concat('app.min.js')) // Concat files
     .pipe(gulp.dest(paths.js))
-    .pipe(browserSync.reload({stream:true}));
-});
-
-
-
+    .pipe(browserSync.reload({ stream: true }))
+})
 
 // Run Flask server
 gulp.task('runServer', function () {
   exec('flask run', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-  });
-});
+    console.log(stdout)
+    console.log(stderr)
+  })
+})
 
 // Browser sync server for live reload
 gulp.task('browserSync', function () {
   browserSync.init(
-    [paths.css + "/*.css", paths.js + "/*.js", paths.templates + '/*.html'],
+    [paths.css + '/*.css', paths.js + '/*.js', paths.templates + '/*.html'],
     {
-      proxy:  "localhost:5000"
+      proxy: 'localhost:5000'
     }
-  );
-});
+  )
+})
 
 // Watch for file changes
 gulp.task('watch', function () {
-  gulp.watch(sources.sass, ['styles']);
-  gulp.watch(sources.js, ['scripts']);
-  gulp.watch(sources.fonts, ['fonts']).on("change", reload);
-  gulp.watch(paths.templates + '/*.html').on("change", reload);
-  gulp.watch(paths.css + '/*.css',browserSync.reload({stream:true}));
-});
+  gulp.watch(sources.sass, ['styles'])
+  gulp.watch(sources.js, ['scripts'])
+  gulp.watch(sources.fonts, ['fonts']).on('change', reload)
+  gulp.watch(paths.templates + '/*.html').on('change', reload)
+  gulp.watch(paths.css + '/*.css', browserSync.reload({ stream: true }))
+})
 
 // Build and compile all files
 gulp.task('build', function () {
-  runSequence('clean', 'styles', 'scripts', 'fonts');
-});
+  runSequence('clean', 'styles', 'scripts', 'fonts')
+})
 
 // Build all files and watches for changes
-gulp.task('build:watch', ['build', 'watch']);
+gulp.task('build:watch', ['build', 'watch'])
 
 // Build all files, run the server, start BrowserSync and watch for file changes
 gulp.task('default', function () {
-  runSequence('build', 'runServer', 'browserSync', 'watch');
-});
+  runSequence('build', 'runServer', 'browserSync', 'watch')
+})
 
 // Build all files, start BrowserSync and watch for file changes (use it when you want to start Flask manually)
 gulp.task('dev', function () {
-  runSequence('build', 'browserSync', 'watch');
-});
+  runSequence('build', 'browserSync', 'watch')
+})
