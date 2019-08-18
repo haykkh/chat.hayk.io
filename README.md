@@ -23,7 +23,7 @@ $ pip install -r requirements.txt
 
 ## Usage
 
-#### Production
+### Production
 
 ```sh
 $ gulp build
@@ -32,7 +32,7 @@ $ gulp build
 -   clears /static
 -   adds styles, scripts, and fonts
 
-#### Development
+### Development
 
 ```sh
 $ gulp watch
@@ -71,10 +71,15 @@ $ gulp
 
 -   0.2.0
     -   Some UX improvements:
+
         -   Changed from &lt; hayk > greeting at beginning to server greeting
+
         -   Added a "leave a message" note
+
         -   Changed from &lt; hayk entered room > at beginning to whenever hayk sends first message
+
     -   Added some crimson here and there
+    
     -   Now notifies via slack when someone joins instead of just messages
 -   0.1.0
     -   The first proper release
@@ -94,17 +99,3 @@ Distributed under the MIT license. See `LICENSE` for more information.
 3.  Commit your changes (`git commit -am 'Add some fooBar'`)
 4.  Push to the branch (`git push origin feature/fooBar`)
 5.  Create a new Pull Request
-
-<!-- Markdown link & img dfn's -->
-
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-
-[npm-url]: https://npmjs.org/package/datadog-metrics
-
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-
-[wiki]: https://github.com/haykkh/yourproject/wiki
